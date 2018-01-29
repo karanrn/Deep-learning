@@ -11,7 +11,11 @@ classifier = Sequential()
 
 # First CNN layer
 classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64,3), activation= 'relu'))
+# Pooling step - Maxpooling
+classifier.add(MaxPooling2D( pool_size=(2, 2)))
 
+# Second CNN layer
+classifier.add(Convolution2D(32, 3, 3, activation= 'relu'))
 # Pooling step - Maxpooling
 classifier.add(MaxPooling2D( pool_size=(2, 2)))
 
@@ -36,12 +40,12 @@ train_datagen = ImageDataGenerator(rescale = 1./255,
 
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
-training_set = train_datagen.flow_from_directory('Convolutional_Neural_Networks/dataset/training_set',
+training_set = train_datagen.flow_from_directory('dataset/training_set',
                                                  target_size = (64, 64),
                                                  batch_size = 32,
                                                  class_mode = 'binary')
 
-test_set = test_datagen.flow_from_directory('Convolutional_Neural_Networks/dataset/test_set',
+test_set = test_datagen.flow_from_directory('dataset/test_set',
                                             target_size = (64, 64),
                                             batch_size = 32,
                                             class_mode = 'binary')
@@ -65,7 +69,7 @@ model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
 
-img = image.load_img('Convolutional_Neural_Networks/dataset/test_set/dogs/dog.4001.jpg', target_size = (64, 64))
+img = image.load_img('dataset/test_set/dogs/dog.4001.jpg', target_size = (64, 64))
 img_tensor = image.img_to_array(img)
 img_tensor = np.expand_dims(img_tensor, axis=0)  
 img_tensor /= 255.
