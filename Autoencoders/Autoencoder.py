@@ -36,13 +36,7 @@ img_train = image.img_to_array(img1)
 img_train = np.expand_dims(img_train, axis=0)  
 img_train /= 255.
 
-# Test or Validation image
-img2 = image.load_img('superman_1.jpg', target_size = (128, 128))
-img_test = image.img_to_array(img2)
-img_test = np.expand_dims(img_test, axis=0)  
-img_test /= 255.
-
 # Training
 autoencoder.fit(img_train, img_train, epochs=150)
 x = autoencoder.predict(img_train)
-plt.imsave('superman_1-Autoencoder.jpg', x[0])
+plt.imsave('superman_Autoencoder.jpg', x[0])
